@@ -4,7 +4,7 @@
 <li>A Python script to estimate from scratch Support Vector Machines for linear, polynomial and Gaussian kernels utilising the quadratic programming optimisation algorithm from library CVXOPT.</li>
 <li>Support Vector Machines implemented from scratch and compared to scikit-learn's implementation.</li>
 
-<p>Given two classes of labelled examples, we are interested in finding a decision boundary resulting from an appropriate choice of support vectors.</p>
+Given two classes of labelled examples, we are interested in finding a decision boundary resulting from an appropriate choice of support vectors.
  
 <ul style="list-style-type:disc"> 
 <h3>Model</h3>
