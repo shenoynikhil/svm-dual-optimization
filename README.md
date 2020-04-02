@@ -1,12 +1,12 @@
 # svm-dual-optimization
-<h3>Description:</h3>
+<h4>Description:</h4>
 <ul style="list-style-type:disc">
 <li>A Python script to estimate from scratch Support Vector Machines for linear, polynomial and Gaussian kernels utilising the quadratic programming optimisation algorithm from library CVXOPT.</li>
 <li>Support Vector Machines implemented from scratch and compared to scikit-learn's implementation.</li>
 
 Given two classes of labelled examples, we are interested in finding a decision boundary resulting from an appropriate choice of support vectors.
  
-<h3>Model</h3>
+<h4>Model</h4>
 <li><p>Simulate labelled training dataset <img src="https://github.com/DrIanGregory/MachineLearning-SupportVectorMachines/blob/master/svgs/4388ea036963a2791929a7365e301c7a.svg" align=middle width=294.09701144999997pt height=27.91243950000002pt/> where there are N couples of <img src="https://github.com/DrIanGregory/MachineLearning-SupportVectorMachines/blob/master/svgs/81fe5e49971b8fdc94a28f66e9310309.svg" align=middle width=55.44161204999999pt height=24.65753399999998pt/> and k is the number (dimension) of x variables.</p></li>
 <li>We are interested in SVM disrimitive analysis by finding the optimum decision boundary resulting from a choice of S support vectors.
 This SVM optimization problem is a constrained convex quadratic optimization problem. 
