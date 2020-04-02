@@ -27,10 +27,10 @@ Where
 samples in the dataset, x is the matrix of training samples, y is the vector of target values, C is a supplied hyperparameter.</p>
 </li>
 <li>The non-zero Lagrange multipliers are the data points which contribute to the formation of the decision boundary.
-<p>The hypothesis function <img src="svgs/4dd763dd7876885c2e5131a0b6d62d57.svg" align=middle width=133.02135495pt height=24.65753399999998pt/> is the decision boundary. The hypothesis formula in terms of the Kernel function is given by:</p></li>
+<p>The hypothesis function <img src="https://github.com/DrIanGregory/MachineLearning-SupportVectorMachines/blob/master/svgs/4dd763dd7876885c2e5131a0b6d62d57.svg" align=middle width=133.02135495pt height=24.65753399999998pt/> is the decision boundary. The hypothesis formula in terms of the Kernel function is given by:</p></li>
 
 <p align="center"><img src="https://github.com/DrIanGregory/MachineLearning-SupportVectorMachines/blob/master/svgs/554a33df7742aebf76ec7b81f6f3c17a.svg" align=middle width=283.76643075pt height=49.315569599999996pt/></p>
-<p>Where S is the set of support vectors, <img src="https://github.com/DrIanGregory/MachineLearning-SupportVectorMachines/blob/master/svgs/c745b9b57c145ec5577b82542b2df546.svg" align=middle width=10.57650494999999pt height=14.15524440000002pt/> is the Lagrange multiplier, b is the bias term, y is the target from the examples, <img src="https://github.com/DrIanGregory/MachineLearning-SupportVectorMachines/blob/master/svgs/4dd763dd7876885c2e5131a0b6d62d57.svg" align=middle width=32.48865674999999pt height=24.65753399999998pt/> is the Kernel and</p>
+<p>Where S is the set of support vectors, <img src="https://github.com/DrIanGregory/MachineLearning-SupportVectorMachines/blob/master/svgs/c745b9b57c145ec5577b82542b2df546.svg" align=middle width=10.57650494999999pt height=14.15524440000002pt/> is the Lagrange multiplier, b is the bias term, y is the target from the examples, <img src="" align=middle width=32.48865674999999pt height=24.65753399999998pt/> is the Kernel and</p>
 
 <p align="center"><img src="https://github.com/DrIanGregory/MachineLearning-SupportVectorMachines/blob/master/svgs/cb555672d4c84c369da09fd80f6811d8.svg" align=middle width=184.7945286pt height=69.0417981pt/></p>
 
