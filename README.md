@@ -37,7 +37,7 @@ samples in the dataset, x is the matrix of training samples, y is the vector of 
 
 The CVXOPT library solves the Wolfe dual soft margin constrained optimisation with the following API:
  
-<p align="center"><img src="svgs/d815dd2e1e10d79a7162f6fe778314f4.svg" align=middle width=137.42467695pt height=78.26216475pt/></p>
+<p align="center"><img src="https://github.com/DrIanGregory/MachineLearning-SupportVectorMachines/blob/master/svgs/d815dd2e1e10d79a7162f6fe778314f4.svg" align=middle width=137.42467695pt height=78.26216475pt/></p>
 <p>Note: <img src="svgs/ceddacf03a28d83100c38150c1076c1f.svg" align=middle width=12.785434199999989pt height=20.931464400000007pt/> indicates component-wise vector inequalities. It means that each row of the matrix <img src="svgs/b5087617bd5bed26b1da99fefb5353f1.svg" align=middle width=23.50114799999999pt height=22.465723500000017pt/> represents an inequality that must be satisfied.</p>
  
 To use the CVXOPT convex solver API. The Wolfe dual soft margin formula is re-written as follows
