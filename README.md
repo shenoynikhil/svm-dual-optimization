@@ -6,7 +6,7 @@
 
 Given two classes of labelled examples, we are interested in finding a decision boundary resulting from an appropriate choice of support vectors.
  
-<h3>Model</h3>
+#### Model
 <li><p>Simulate labelled training dataset <img src="https://github.com/DrIanGregory/MachineLearning-SupportVectorMachines/blob/master/svgs/4388ea036963a2791929a7365e301c7a.svg" align=middle width=294.09701144999997pt height=27.91243950000002pt/> where there are N couples of <img src="https://github.com/DrIanGregory/MachineLearning-SupportVectorMachines/blob/master/svgs/81fe5e49971b8fdc94a28f66e9310309.svg" align=middle width=55.44161204999999pt height=24.65753399999998pt/> and k is the number (dimension) of x variables.</p></li>
 <li>We are interested in SVM disrimitive analysis by finding the optimum decision boundary resulting from a choice of S support vectors.
 This SVM optimization problem is a constrained convex quadratic optimization problem. 
@@ -34,6 +34,25 @@ samples in the dataset, x is the matrix of training samples, y is the vector of 
 <p align="center"><img src="https://github.com/DrIanGregory/MachineLearning-SupportVectorMachines/blob/master/svgs/cb555672d4c84c369da09fd80f6811d8.svg" align=middle width=184.7945286pt height=69.0417981pt/></p>
 
 <h3> Code for feeding data into CVXopt </h3>
+
+The CVXOPT library solves the Wolfe dual soft margin constrained optimisation with the following API:
+ 
+<p align="center"><img src="svgs/d815dd2e1e10d79a7162f6fe778314f4.svg" align=middle width=137.42467695pt height=78.26216475pt/></p>
+<p>Note: <img src="svgs/ceddacf03a28d83100c38150c1076c1f.svg" align=middle width=12.785434199999989pt height=20.931464400000007pt/> indicates component-wise vector inequalities. It means that each row of the matrix <img src="svgs/b5087617bd5bed26b1da99fefb5353f1.svg" align=middle width=23.50114799999999pt height=22.465723500000017pt/> represents an inequality that must be satisfied.</p>
+ 
+To use the CVXOPT convex solver API. The Wolfe dual soft margin formula is re-written as follows
+
+<p align="center"><img src="https://github.com/DrIanGregory/MachineLearning-SupportVectorMachines/blob/master/svgs/a364906d0854671fe9b9718ce4ce1ec3.svg" align=middle width=212.12443724999997pt height=81.45851505pt/></p>
+
+Where 
+<br>
+<p>G is a Gram matrix of all possible dot products of vectors <img src="svgs/d7084ce258ffe96f77e4f3647b250bbf.svg" align=middle width=17.521011749999992pt height=14.15524440000002pt/>.</p>
+
+<p align="center"><img src="https://github.com/DrIanGregory/MachineLearning-SupportVectorMachines/blob/master/svgs/5ceca286e4d3c1cb407465d5db863df5.svg" align=middle width=357.85148685pt height=88.76800184999999pt/></p>
+
+<p align="center"><img src="https://github.com/DrIanGregory/MachineLearning-SupportVectorMachines/blob/master/svgs/ceeaf43e7d8f6cde00a8a21441244b9f.svg" align=middle width=386.18483804999994pt height=144.88403325pt/></p>
+
+
 
 ```python
 
