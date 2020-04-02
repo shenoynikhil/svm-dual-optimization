@@ -34,7 +34,9 @@ samples in the dataset, x is the matrix of training samples, y is the vector of 
 <p align="center"><img src="https://github.com/DrIanGregory/MachineLearning-SupportVectorMachines/blob/master/svgs/cb555672d4c84c369da09fd80f6811d8.svg" align=middle width=184.7945286pt height=69.0417981pt/></p>
 
 <h3> Code for feeding data into CVXopt </h3>
+
 ```python
+
 def perform_cvx_opt(X, y, C = None, soft_threshold = 1e-4, kernel = 'linear', p = 3, gamma = 1e-1):
     n_samples, n_features = X.shape
     K = np.zeros((n_samples, n_samples))
