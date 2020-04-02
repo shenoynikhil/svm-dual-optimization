@@ -4,7 +4,7 @@
 <li>A Python script to estimate from scratch Support Vector Machines for linear, polynomial and Gaussian kernels utilising the quadratic programming optimisation algorithm from library CVXOPT.</li>
 <li>Support Vector Machines implemented from scratch and compared to scikit-learn's implementation.</li>
 
-<h3>Given two classes of labelled examples, we are interested in finding a decision boundary resulting from an appropriate choice of support vectors.</h3>
+<p>Given two classes of labelled examples, we are interested in finding a decision boundary resulting from an appropriate choice of support vectors.</p>
  
 <ul style="list-style-type:disc"> 
 <h3>Model</h3>
@@ -30,7 +30,7 @@ samples in the dataset, x is the matrix of training samples, y is the vector of 
 <p>The hypothesis function <img src="https://github.com/DrIanGregory/MachineLearning-SupportVectorMachines/blob/master/svgs/4dd763dd7876885c2e5131a0b6d62d57.svg" align=middle width=133.02135495pt height=24.65753399999998pt/> is the decision boundary. The hypothesis formula in terms of the Kernel function is given by:</p></li>
 
 <p align="center"><img src="https://github.com/DrIanGregory/MachineLearning-SupportVectorMachines/blob/master/svgs/554a33df7742aebf76ec7b81f6f3c17a.svg" align=middle width=283.76643075pt height=49.315569599999996pt/></p>
-<p>Where S is the set of support vectors, <img src="https://github.com/DrIanGregory/MachineLearning-SupportVectorMachines/blob/master/svgs/c745b9b57c145ec5577b82542b2df546.svg" align=middle width=10.57650494999999pt height=14.15524440000002pt/> is the Lagrange multiplier, b is the bias term, y is the target from the examples, <img src="" align=middle width=32.48865674999999pt height=24.65753399999998pt/> is the Kernel and</p>
+<p>Where S is the set of support vectors, <img src="https://github.com/DrIanGregory/MachineLearning-SupportVectorMachines/blob/master/svgs/c745b9b57c145ec5577b82542b2df546.svg" align=middle width=10.57650494999999pt height=14.15524440000002pt/> is the Lagrange multiplier, b is the bias term, y is the target from the examples, <img src="https://github.com/DrIanGregory/MachineLearning-SupportVectorMachines/blob/master/svgs/39ae080f4ae6ef7bda6a0ca0c44efc78.svg" align=middle width=32.48865674999999pt height=24.65753399999998pt/> is the Kernel and</p>
 
 <p align="center"><img src="https://github.com/DrIanGregory/MachineLearning-SupportVectorMachines/blob/master/svgs/cb555672d4c84c369da09fd80f6811d8.svg" align=middle width=184.7945286pt height=69.0417981pt/></p>
 
