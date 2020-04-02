@@ -33,4 +33,58 @@ samples in the dataset, x is the matrix of training samples, y is the vector of 
 
 <p align="center"><img src="https://github.com/DrIanGregory/MachineLearning-SupportVectorMachines/blob/master/svgs/cb555672d4c84c369da09fd80f6811d8.svg" align=middle width=184.7945286pt height=69.0417981pt/></p>
 
+<h3> Code for feeding data into CVXopt </h3>
+```python
+def perform_cvx_opt(X, y, C = None, soft_threshold = 1e-4, kernel = 'linear', p = 3, gamma = 1e-1):
+    n_samples, n_features = X.shape
+    K = np.zeros((n_samples, n_samples))
+    for i in range(n_samples):
+        for j in range(n_samples):
+            if kernel == 'linear':
+                K[i,j] = linear_kernel(X[i], X[j])
+            elif kernel == 'poly':
+                K[i,j] = polynomial_kernel(X[i], X[j], p)
+            elif kernel == 'rbf' :
+                K[i, j] = gaussian_kernel(X[i], X[j], gamma)
+                
+    P = cvxopt_matrix(np.outer(y, y) * K)
+    q = cvxopt_matrix(np.ones(n_samples) * -1)
+    A = cvxopt_matrix(y.reshape(1, -1))
+    A = cvxopt_matrix(A, (1, n_samples), 'd')
+    b = cvxopt_matrix(0.0)
+    
+    if C is None:
+        G = cvxopt_matrix(np.diag(np.ones(n_samples) * -1))
+        h = cvxopt_matrix(np.zeros(n_samples))
+    else:
+        tmp1 = np.diag(np.ones(n_samples) * -1)
+        tmp2 = np.identity(n_samples)
+        G = cvxopt_matrix(np.vstack((tmp1, tmp2)))
+        tmp1 = np.zeros(n_samples)
+        tmp2 = np.ones(n_samples) * C
+        h = cvxopt_matrix(np.hstack((tmp1, tmp2)))
+    
+    # solve QP problem
+    solution = cvxopt_solvers.qp(P, q, G, h, A, b)
+    
+    # Lagrange multipliers
+    a = np.ravel(solution['x'])
+
+    # Calculate weights
+    w = np.matrix(np.zeros((1, n_features)))
+    for i in range(n_samples):
+        w += a[i] * y[i] * X[i]
+        
+    # Calculate Intercepts
+    intercept = 0
+    for i in range(n_samples):
+        if a[i] > soft_threshold:
+            intercept = y[i] - w.dot(np.transpose(X[i]))
+            break
+    
+    intercept = float(intercept)
+    
+    return w.T, intercept, a
+```
+   
 
