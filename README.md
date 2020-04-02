@@ -6,8 +6,7 @@
 
 Given two classes of labelled examples, we are interested in finding a decision boundary resulting from an appropriate choice of support vectors.
  
-<ul style="list-style-type:disc"> 
-<h3>Model</h3>
+#### Model
 <li><p>Simulate labelled training dataset <img src="https://github.com/DrIanGregory/MachineLearning-SupportVectorMachines/blob/master/svgs/4388ea036963a2791929a7365e301c7a.svg" align=middle width=294.09701144999997pt height=27.91243950000002pt/> where there are N couples of <img src="https://github.com/DrIanGregory/MachineLearning-SupportVectorMachines/blob/master/svgs/81fe5e49971b8fdc94a28f66e9310309.svg" align=middle width=55.44161204999999pt height=24.65753399999998pt/> and k is the number (dimension) of x variables.</p></li>
 <li>We are interested in SVM disrimitive analysis by finding the optimum decision boundary resulting from a choice of S support vectors.
 This SVM optimization problem is a constrained convex quadratic optimization problem. 
@@ -34,4 +33,79 @@ samples in the dataset, x is the matrix of training samples, y is the vector of 
 
 <p align="center"><img src="https://github.com/DrIanGregory/MachineLearning-SupportVectorMachines/blob/master/svgs/cb555672d4c84c369da09fd80f6811d8.svg" align=middle width=184.7945286pt height=69.0417981pt/></p>
 
+<h3> Code for feeding data into CVXopt </h3>
+
+The CVXOPT library solves the Wolfe dual soft margin constrained optimisation with the following API:
+ 
+<p align="center"><img src="https://github.com/DrIanGregory/MachineLearning-SupportVectorMachines/blob/master/svgs/d815dd2e1e10d79a7162f6fe778314f4.svg" align=middle width=137.42467695pt height=78.26216475pt/></p>
+<p>Note: <img src="https://github.com/DrIanGregory/MachineLearning-SupportVectorMachines/blob/master/svgs/ceddacf03a28d83100c38150c1076c1f.svg" align=middle width=12.785434199999989pt height=20.931464400000007pt/> indicates component-wise vector inequalities. It means that each row of the matrix <img src="https://github.com/DrIanGregory/MachineLearning-SupportVectorMachines/blob/master/svgs/b5087617bd5bed26b1da99fefb5353f1.svg" align=middle width=23.50114799999999pt height=22.465723500000017pt/> represents an inequality that must be satisfied.</p>
+ 
+To use the CVXOPT convex solver API. The Wolfe dual soft margin formula is re-written as follows
+
+<p align="center"><img src="https://github.com/DrIanGregory/MachineLearning-SupportVectorMachines/blob/master/svgs/a364906d0854671fe9b9718ce4ce1ec3.svg" align=middle width=212.12443724999997pt height=81.45851505pt/></p>
+
+Where 
+<br>
+<p>G is a Gram matrix of all possible dot products of vectors <img src="https://github.com/DrIanGregory/MachineLearning-SupportVectorMachines/blob/master/svgs/d7084ce258ffe96f77e4f3647b250bbf.svg" align=middle width=17.521011749999992pt height=14.15524440000002pt/>.</p>
+
+<p align="center"><img src="https://github.com/DrIanGregory/MachineLearning-SupportVectorMachines/blob/master/svgs/5ceca286e4d3c1cb407465d5db863df5.svg" align=middle width=357.85148685pt height=88.76800184999999pt/></p>
+
+<p align="center"><img src="https://github.com/DrIanGregory/MachineLearning-SupportVectorMachines/blob/master/svgs/ceeaf43e7d8f6cde00a8a21441244b9f.svg" align=middle width=386.18483804999994pt height=144.88403325pt/></p>
+
+
+
+```python
+# In functions.py
+def perform_cvx_opt(X, y, C = None, soft_threshold = 1e-4, kernel = 'linear', p = 3, gamma = 1e-1):
+    n_samples, n_features = X.shape
+    K = np.zeros((n_samples, n_samples))
+    for i in range(n_samples):
+        for j in range(n_samples):
+            if kernel == 'linear':
+                K[i,j] = linear_kernel(X[i], X[j])
+            elif kernel == 'poly':
+                K[i,j] = polynomial_kernel(X[i], X[j], p)
+            elif kernel == 'rbf' :
+                K[i, j] = gaussian_kernel(X[i], X[j], gamma)
+                
+    P = cvxopt_matrix(np.outer(y, y) * K)
+    q = cvxopt_matrix(np.ones(n_samples) * -1)
+    A = cvxopt_matrix(y.reshape(1, -1))
+    A = cvxopt_matrix(A, (1, n_samples), 'd')
+    b = cvxopt_matrix(0.0)
+    
+    if C is None:
+        G = cvxopt_matrix(np.diag(np.ones(n_samples) * -1))
+        h = cvxopt_matrix(np.zeros(n_samples))
+    else:
+        tmp1 = np.diag(np.ones(n_samples) * -1)
+        tmp2 = np.identity(n_samples)
+        G = cvxopt_matrix(np.vstack((tmp1, tmp2)))
+        tmp1 = np.zeros(n_samples)
+        tmp2 = np.ones(n_samples) * C
+        h = cvxopt_matrix(np.hstack((tmp1, tmp2)))
+    
+    # solve QP problem
+    solution = cvxopt_solvers.qp(P, q, G, h, A, b)
+    
+    # Lagrange multipliers
+    a = np.ravel(solution['x'])
+
+    # Calculate weights
+    w = np.matrix(np.zeros((1, n_features)))
+    for i in range(n_samples):
+        w += a[i] * y[i] * X[i]
+        
+    # Calculate Intercepts
+    intercept = 0
+    for i in range(n_samples):
+        if a[i] > soft_threshold:
+            intercept = y[i] - w.dot(np.transpose(X[i]))
+            break
+    
+    intercept = float(intercept)
+    
+    return w.T, intercept, a
+```
+   
 
