@@ -1,4 +1,6 @@
 # svm-dual-optimization
+ELL409 Intro to Machine Learning Course Assignment
+
 <h3>Description:</h3>
 <ul style="list-style-type:disc">
  <li>Check the Functions.py file for the CVX opt implementation. </li>
